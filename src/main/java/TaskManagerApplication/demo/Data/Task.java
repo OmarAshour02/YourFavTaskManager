@@ -15,12 +15,13 @@ import java.util.Date;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String title;
-    String description;
-    Date dueDate;
-    Character priority;
-    boolean status;
+    private String title;
+    private String description;
+    private Date dueDate;
+    private Character priority;
+    private boolean status;
+
 
 }

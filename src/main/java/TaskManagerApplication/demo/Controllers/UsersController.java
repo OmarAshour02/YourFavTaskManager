@@ -15,11 +15,14 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 @Controller
 public class UsersController {
+
     private final UsersService usersService;
+
     @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
+
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody User user) {
         User newUser = usersService.addUser(user);
