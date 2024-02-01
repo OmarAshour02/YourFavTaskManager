@@ -19,6 +19,7 @@ public class Task {
 
     private String title;
     private String description;
+    @Column(name = "due_date")
     private Date dueDate;
     private Character priority;
     private boolean status;
