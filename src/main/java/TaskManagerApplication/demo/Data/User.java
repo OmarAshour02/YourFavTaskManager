@@ -27,7 +27,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(name = "role", columnDefinition = "boolean default false")
     String role;
 
 }

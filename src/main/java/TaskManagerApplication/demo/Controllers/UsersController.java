@@ -2,7 +2,9 @@ package TaskManagerApplication.demo.Controllers;
 
 
 import TaskManagerApplication.demo.Data.User;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,9 +26,13 @@ public class UsersController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody User user) {
-        User newUser = usersService.addUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    public ResponseEntity<Object> signUp(@RequestBody User user){
+        try {
+            User newUser = usersService.addUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while adding user. Please try again.");
+        }
     }
 
     @PostMapping("/signin")
@@ -39,4 +45,7 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+
+    // Implement logout
 }
+

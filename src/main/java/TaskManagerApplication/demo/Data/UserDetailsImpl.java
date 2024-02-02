@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
     private final String username;
@@ -19,7 +20,7 @@ public class UserDetailsImpl implements UserDetails {
         this.role = new SimpleGrantedAuthority(user.getRole());
     }
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection<? extends GrantedAuthority>) this.role;
+        return List.of(new GrantedAuthority[]{this.role});
     }
 
     @Override

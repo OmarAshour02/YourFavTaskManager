@@ -11,13 +11,13 @@ import java.util.Optional;
 
 @Service
 public class UsersService {
-    private final UsersRepository usersRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.usersRepository = usersRepository;
+    public UsersService(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 

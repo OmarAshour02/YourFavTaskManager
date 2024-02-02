@@ -3,6 +3,7 @@ package TaskManagerApplication.demo.Controllers;
 import TaskManagerApplication.demo.Data.Task;
 import TaskManagerApplication.demo.Services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class TasksController {
     public Task getTask(@PathVariable Long id) {
         return tasksService.getTask(id);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<Task> getTasks() {
         return tasksService.getTasks();
