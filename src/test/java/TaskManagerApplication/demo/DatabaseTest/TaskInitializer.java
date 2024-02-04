@@ -1,6 +1,6 @@
 package TaskManagerApplication.demo.DatabaseTest;
 
-import TaskManagerApplication.demo.Data.Task;
+import TaskManagerApplication.demo.data.Task;
 
 public class TaskInitializer {
     public static Task createTask(){

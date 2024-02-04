@@ -1,17 +1,14 @@
 package TaskManagerApplication.demo.ServicesTest;
 
-import TaskManagerApplication.demo.Data.Task;
+import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.DatabaseTest.TaskInitializer;
-import TaskManagerApplication.demo.Repositories.TasksRepository;
-import TaskManagerApplication.demo.Services.TasksService;
+import TaskManagerApplication.demo.repositories.TasksRepository;
+import TaskManagerApplication.demo.services.TasksService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
 
