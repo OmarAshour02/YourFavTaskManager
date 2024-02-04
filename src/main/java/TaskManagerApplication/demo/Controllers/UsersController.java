@@ -14,7 +14,7 @@ import TaskManagerApplication.demo.Services.UsersService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Controller
 public class UsersController {
 

@@ -1,5 +1,6 @@
-package TaskManagerApplication.demo.Data;
+package TaskManagerApplication.demo.Data.Implementations;
 
+import TaskManagerApplication.demo.Data.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

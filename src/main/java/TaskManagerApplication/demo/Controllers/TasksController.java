@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/v1/tasks")
 public class TasksController {
 
     private final TasksService tasksService;
@@ -28,6 +28,7 @@ public class TasksController {
     public Task getTask(@PathVariable Long id) {
         return tasksService.getTask(id);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<Task> getTasks() {
