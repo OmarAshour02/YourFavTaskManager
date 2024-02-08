@@ -1,10 +1,16 @@
 package TaskManagerApplication.demo.controllers;
 
 import TaskManagerApplication.demo.data.Task;
+import TaskManagerApplication.demo.data.User;
 import TaskManagerApplication.demo.services.TasksService;
+import TaskManagerApplication.demo.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,14 +19,18 @@ import java.util.List;
 public class TasksController {
 
     private final TasksService tasksService;
-
+    private final UsersService usersService;
     @Autowired
-    public TasksController(TasksService tasksService) {
+    public TasksController(TasksService tasksService, UsersService usersService) {
         this.tasksService = tasksService;
+        this.usersService = usersService;
     }
 
-    @PostMapping
-    public Task addTask(@RequestBody Task task) {
+    @PostMapping("/{userId}")
+    public Task addTask(@PathVariable Long userId, @RequestBody Task task) {
+        User user = usersService.getUser(userId).orElse(null);
+        task.setUser(user);
+        System.out.println("User: " + user);
         return tasksService.addTask(task);
     }
 
@@ -28,11 +38,16 @@ public class TasksController {
     public Task getTask(@PathVariable Long id) {
         return tasksService.getTask(id);
     }
+    @GetMapping("/all/{userId}")
+    public List<Task> getTasks(@PathVariable Long userId) {
+        System.out.println("User ID: " + userId);
+        System.out.println(tasksService.getTasksByUserId(userId));
+        List<Task> userTasks = tasksService.getTasksByUserId(userId);
+        if (userTasks.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not have any tasks");
+        }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping
-    public List<Task> getTasks() {
-        return tasksService.getTasks();
+        return userTasks;
     }
 
     @DeleteMapping("/{id}")
