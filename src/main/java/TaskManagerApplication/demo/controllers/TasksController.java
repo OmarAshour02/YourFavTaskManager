@@ -28,9 +28,7 @@ public class TasksController {
 
     @PostMapping("/{userId}")
     public Task addTask(@PathVariable Long userId, @RequestBody Task task) {
-        User user = usersService.getUser(userId).orElse(null);
-        task.setUser(user);
-        System.out.println("User: " + user);
+        task.setUserId(userId);
         return tasksService.addTask(task);
     }
 
