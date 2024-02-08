@@ -53,5 +53,9 @@ public class TasksService {
         return tasksRepository.findByPriority(priority);
     }
 
+    public List<Task> getTasksByUserId(Long userId){
+        return tasksRepository.findByUserId(userId);
+    }
+
 
 }
