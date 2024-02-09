@@ -23,6 +23,7 @@ public class SecurityConfig{
         http
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/api/v1/users/**").permitAll()
+                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
