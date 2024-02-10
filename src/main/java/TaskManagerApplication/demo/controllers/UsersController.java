@@ -5,6 +5,7 @@ import TaskManagerApplication.demo.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import TaskManagerApplication.demo.services.UsersService;
@@ -34,8 +35,8 @@ public class UsersController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestParam String username, @RequestParam String password) {
-        Optional<User> user = usersService.getUser(username, password);
+    public ResponseEntity<String> signIn(@RequestParam String email, @RequestParam String password) {
+        Optional<User> user = usersService.getUser(email, password);
 
         if (user.isPresent()) {
             return ResponseEntity.ok("Sign-in successful");
@@ -44,6 +45,10 @@ public class UsersController {
         }
     }
 
-    // Implement logout
+    @PostMapping("/signout")
+    public ResponseEntity<String> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok("Logged out successfully");
+    }
 }
 

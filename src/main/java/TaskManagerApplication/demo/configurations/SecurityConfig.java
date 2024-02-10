@@ -30,7 +30,8 @@ public class SecurityConfig{
                 // Configure form login
                 .formLogin(withDefaults())
                 .logout((logout) -> logout
-                        .logoutSuccessUrl("/api/v1/users/signup").permitAll())
+                        .logoutSuccessUrl("/api/v1/users/signin").permitAll()
+                        .deleteCookies("JSESSIONID"))
 //                .oauth2Login(withDefaults())
                 // Need to do custom csrf configuration
                 .csrf((csrf) -> csrf.disable());
