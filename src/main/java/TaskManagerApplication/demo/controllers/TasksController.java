@@ -38,13 +38,10 @@ public class TasksController {
     }
     @GetMapping("/all/{userId}")
     public List<Task> getTasks(@PathVariable Long userId) {
-        System.out.println("User ID: " + userId);
-        System.out.println(tasksService.getTasksByUserId(userId));
         List<Task> userTasks = tasksService.getTasksByUserId(userId);
         if (userTasks.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not have any tasks");
         }
-
         return userTasks;
     }
 
