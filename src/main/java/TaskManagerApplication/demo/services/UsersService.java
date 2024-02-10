@@ -27,11 +27,9 @@ public class UsersService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return usersRepository.save(user);
     }
-    public Optional<User> getUser(Long id){
-        return usersRepository.findById(id);
-    }
-    public Optional<User> getUser(String userName, String password){
-        return usersRepository.findByUsername(userName)
+
+    public Optional<User> getUser(String email, String password){
+        return usersRepository.findByEmail(email)
                 .filter(user -> bCryptPasswordEncoder.matches(password, user.getPassword()));
     }
 }
