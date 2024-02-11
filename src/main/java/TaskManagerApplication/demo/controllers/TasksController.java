@@ -33,19 +33,20 @@ public class TasksController {
 
     @GetMapping("/{id}")
     public Task getTask(@PathVariable Long id) {
-        Long signedInUserId = usersService.getSignedInUserId();
-        if(!Objects.equals(id, signedInUserId)) {
+        Task task = tasksService.getTask(id);
+        if(!Objects.equals(task.getUserId(), usersService.getSignedInUserId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to view this task");
         }
         return tasksService.getTask(id);
     }
     @GetMapping("/all/{userId}")
     public List<Task> getTasks(@PathVariable Long userId) {
-        List<Task> userTasks = tasksService.getTasksByUserId(userId);
-        if (userTasks.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not have any tasks");
+        Long signedInUserId = usersService.getSignedInUserId();
+        if(!Objects.equals(userId, signedInUserId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to view this task");
         }
-        return userTasks;
+
+        return tasksService.getTasksByUserId(userId);
     }
 
     @DeleteMapping("/{id}")
