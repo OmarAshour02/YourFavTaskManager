@@ -1,18 +1,17 @@
 package TaskManagerApplication.demo.controllers;
 
 import TaskManagerApplication.demo.data.Task;
-import TaskManagerApplication.demo.data.User;
 import TaskManagerApplication.demo.services.TasksService;
 import TaskManagerApplication.demo.services.UsersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
+
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -34,6 +33,10 @@ public class TasksController {
 
     @GetMapping("/{id}")
     public Task getTask(@PathVariable Long id) {
+        Long signedInUserId = usersService.getSignedInUserId();
+        if(!Objects.equals(id, signedInUserId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to view this task");
+        }
         return tasksService.getTask(id);
     }
     @GetMapping("/all/{userId}")

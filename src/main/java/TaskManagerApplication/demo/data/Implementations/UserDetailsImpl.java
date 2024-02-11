@@ -1,6 +1,7 @@
 package TaskManagerApplication.demo.data.Implementations;
 
 import TaskManagerApplication.demo.data.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,12 +10,15 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
+    @Getter
+    private final Long id;
     private final String username;
     private final String password;
     private final String email;
     private final GrantedAuthority role;
 
     public UserDetailsImpl(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
@@ -31,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override

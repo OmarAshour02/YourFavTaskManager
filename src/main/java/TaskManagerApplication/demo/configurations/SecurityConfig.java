@@ -29,6 +29,7 @@ public class SecurityConfig{
                 .httpBasic(withDefaults())
                 // Configure form login
                 .formLogin(withDefaults())
+
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/api/v1/users/signin").permitAll()
                         .deleteCookies("JSESSIONID"))

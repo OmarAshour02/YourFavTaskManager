@@ -35,14 +35,11 @@ public class UsersController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Long> signIn(@RequestParam String email, @RequestParam String password) {
         Optional<User> user = usersService.getUser(email, password);
+        System.out.println(user.isPresent());
+        return user.map(value -> ResponseEntity.ok(value.getId())).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));
 
-        if (user.isPresent()) {
-            return ResponseEntity.ok("Sign-in successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
     }
 
     @PostMapping("/signout")
