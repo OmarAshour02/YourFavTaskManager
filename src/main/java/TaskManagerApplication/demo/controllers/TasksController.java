@@ -28,6 +28,10 @@ public class TasksController {
     @PostMapping("/{userId}")
     public Task addTask(@PathVariable Long userId, @RequestBody Task task) {
         task.setUserId(userId);
+        Long signedInUserId = usersService.getSignedInUserId();
+        if(!Objects.equals(userId, signedInUserId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to add task for this user");
+        }
         return tasksService.addTask(task);
     }
 
