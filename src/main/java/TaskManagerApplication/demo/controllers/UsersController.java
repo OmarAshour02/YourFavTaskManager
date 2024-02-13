@@ -35,12 +35,10 @@ public class UsersController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<Long> signIn(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<User> signIn(@RequestParam String email, @RequestParam String password) {
         Optional<User> user = usersService.getUser(email, password);
         System.out.println(user.isPresent());
-        return user.map(value -> ResponseEntity.ok(value.getId())).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));
-
-    }
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));    }
 
     @PostMapping("/signout")
     public ResponseEntity<String> logout() {

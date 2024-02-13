@@ -39,13 +39,13 @@ public class TasksController {
         }
         return tasksService.getTask(id);
     }
+
     @GetMapping("/all/{userId}")
     public List<Task> getTasks(@PathVariable Long userId) {
         Long signedInUserId = usersService.getSignedInUserId();
         if(!Objects.equals(userId, signedInUserId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to view this task");
         }
-
         return tasksService.getTasksByUserId(userId);
     }
 
