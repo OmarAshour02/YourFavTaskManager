@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import TaskManagerApplication.demo.services.UsersService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -35,10 +36,17 @@ public class UsersController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<User> signIn(@RequestParam String email, @RequestParam String password) {
-        Optional<User> user = usersService.getUser(email, password);
-        System.out.println(user.isPresent());
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));    }
+    public ResponseEntity<Object> signIn(@RequestParam String email, @RequestParam String password) {
+        Optional<Object> user = usersService.getUser(email, password);
+        Object responseObject;
+        if (user.get() != Optional.empty()) {
+            System.out.println(user.get());
+            responseObject = user.get();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+        return ResponseEntity.ok(responseObject);
+    }
 
     @PostMapping("/signout")
     public ResponseEntity<String> logout() {

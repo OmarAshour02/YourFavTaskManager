@@ -9,20 +9,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import TaskManagerApplication.demo.repositories.UsersRepository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UsersService {
-    @Autowired
-    private UsersRepository usersRepository;
+
+    private final UsersRepository usersRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UsersService(BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.usersRepository = usersRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
     public User addUser(User user) throws IllegalArgumentException{
         if (usersRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email is already in use");
@@ -31,9 +32,9 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
-    public Optional<User> getUser(String email, String password){
-        return usersRepository.findByEmail(email)
-                .filter(user -> bCryptPasswordEncoder.matches(password, user.getPassword()));
+    public Optional<Object> getUser(String email, String password){
+        return Optional.of(usersRepository.findByEmail(email)
+                .filter(user -> bCryptPasswordEncoder.matches(password, user.getPassword())));
     }
 
     public Long getSignedInUserId() {
