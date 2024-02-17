@@ -1,6 +1,8 @@
 package TaskManagerApplication.demo.repositories;
 
 import TaskManagerApplication.demo.data.Task;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +10,13 @@ import java.util.List;
 
 @Repository
 public interface TasksRepository extends JpaRepository<Task, Long> {
-    List<Task> findByStatus(boolean status);
+    // Find by status and user id
 
-    List<Task> findByPriority(char priority);
+    List<Task> findByUserIdAndStatus(Long userId, boolean status, Pageable pageable);
 
-    List<Task> findByUserId(Long userId);
+    List<Task> findByUserIdAndPriority(Long userId, char priority, Pageable pageable);
+
+    List<Task> findByUserId(Long userId, Pageable pageable);
+
+    Page<Task> findAll(Pageable pageable);
 }

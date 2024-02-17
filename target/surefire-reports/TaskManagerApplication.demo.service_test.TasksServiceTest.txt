@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: TaskManagerApplication.demo.service_test.TasksServiceTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.636 s -- in TaskManagerApplication.demo.service_test.TasksServiceTest

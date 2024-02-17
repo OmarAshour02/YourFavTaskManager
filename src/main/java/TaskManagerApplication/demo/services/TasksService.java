@@ -3,6 +3,8 @@ package TaskManagerApplication.demo.services;
 import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.repositories.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,18 @@ public class TasksService {
         return tasksRepository.findAll();
     }
 
+    public List<Task> getTasksByStatus(Long userId, boolean status, Pageable pageable){
+        return tasksRepository.findByUserIdAndStatus(userId, status, pageable);
+    }
+
+    public List<Task> getTasksByPriority(Long userId, char priority, Pageable pageable){
+        return tasksRepository.findByUserIdAndPriority(userId,priority, pageable);
+    }
+
+    public List<Task> getTasksByUserId(Long userId, Pageable pageable){
+        return tasksRepository.findByUserId(userId, pageable);
+    }
+
     public void deleteTask(Long id){
         tasksRepository.deleteById(id);
     }
@@ -44,18 +58,4 @@ public class TasksService {
         }
         return null;
     }
-
-    public List<Task> getTasksByStatus(boolean status){
-        return tasksRepository.findByStatus(status);
-    }
-
-    public List<Task> getTasksByPriority(char priority){
-        return tasksRepository.findByPriority(priority);
-    }
-
-    public List<Task> getTasksByUserId(Long userId){
-        return tasksRepository.findByUserId(userId);
-    }
-
-
 }

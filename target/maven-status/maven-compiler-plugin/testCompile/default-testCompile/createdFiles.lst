@@ -1,0 +1,5 @@
+TaskManagerApplication/demo/initializer/TaskInitializer.class
+TaskManagerApplication/demo/TaskManagerApplicationTests.class
+TaskManagerApplication/demo/service_test/TasksServiceTest.class
+TaskManagerApplication/demo/service_test/UsersServiceTest.class
+TaskManagerApplication/demo/initializer/UserInitializer.class
