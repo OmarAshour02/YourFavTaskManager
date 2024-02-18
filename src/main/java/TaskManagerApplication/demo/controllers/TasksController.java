@@ -1,73 +1,62 @@
 package TaskManagerApplication.demo.controllers;
 
 import TaskManagerApplication.demo.configurations.annotation.AuthorizeUser;
+import TaskManagerApplication.demo.data.Implementations.UserDetailsImpl;
 import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.services.TasksService;
-import TaskManagerApplication.demo.services.UsersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/v1/tasks")
 public class TasksController {
 
+    /**
+     * The TasksService to handle the business logic
+     *
+     *
+     */
     private final TasksService tasksService;
-    private final UsersService usersService;
     @Autowired
-    public TasksController(TasksService tasksService, UsersService usersService) {
+    public TasksController(TasksService tasksService) {
         this.tasksService = tasksService;
-        this.usersService = usersService;
     }
 
-    @PostMapping("/{userId}")
-    public Task addTask(@PathVariable Long userId, @RequestBody Task task) {
-        task.setUserId(userId);
-        Long signedInUserId = usersService.getSignedInUserId();
-        if(!Objects.equals(userId, signedInUserId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to add task for this user");
-        }
-        return tasksService.addTask(task);
+    @PostMapping({"/"})
+    public Task addTask(@AuthenticationPrincipal UserDetailsImpl userDetails , @RequestBody Task task) {
+        return tasksService.addTask(userDetails, task);
     }
 
     @GetMapping("/{id}")
-    public Task getTask(@PathVariable Long id) {
-        Task task = tasksService.getTask(id);
-        if(!Objects.equals(task.getUserId(), usersService.getSignedInUserId())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to view this task");
-        }
+    @AuthorizeUser
+    public Optional<Task> getTask(@PathVariable Long id) {
         return tasksService.getTask(id);
     }
 
-    @GetMapping("/all/{userId}")
-    @AuthorizeUser
-    public List<Task> getTasks(@PathVariable Long userId, Pageable pageable) {
-        return tasksService.getTasksByUserId(userId, pageable);
+    @GetMapping("/all")
+    public List<Task> getTasks(@AuthenticationPrincipal UserDetailsImpl userDetails, Pageable pageable) {
+        return tasksService.getTasksByUserId(userDetails.getId(), pageable);
     }
 
-
-    @GetMapping("/status/{status}/user/{userId}")
-    @AuthorizeUser
-    public List<Task> getTasksByStatus(@PathVariable Long userId, @PathVariable boolean status, Pageable pageable){
-        return tasksService.getTasksByStatus(userId, status, pageable);
+    @GetMapping("/status/{status}")
+    public List<Task> getTasksByStatus(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable boolean status, Pageable pageable){
+        return tasksService.getTasksByStatus(userDetails.getId(), status, pageable);
     }
 
-    @GetMapping("/priority/{priority}/user/{userId}")
-    @AuthorizeUser
-    public List<Task> getTasksByPriority(@PathVariable Long userId, @PathVariable char priority, Pageable pageable){
-        return tasksService.getTasksByPriority(userId, priority, pageable);
+    @GetMapping("/priority/{priority}")
+    public List<Task> getTasksByPriority(@AuthenticationPrincipal UserDetailsImpl userDetails,@PathVariable char priority, Pageable pageable){
+        return tasksService.getTasksByPriority(userDetails.getId(), priority, pageable);
     }
 
     @DeleteMapping("/{id}")
+    @AuthorizeUser
     public void deleteTask(@PathVariable Long id) {
         tasksService.deleteTask(id);
     }

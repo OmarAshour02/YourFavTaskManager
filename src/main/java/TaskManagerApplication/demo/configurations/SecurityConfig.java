@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,15 +28,11 @@ public class SecurityConfig{
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
-                // Configure form login
                 .formLogin(withDefaults())
-
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/api/v1/users/signin").permitAll()
                         .deleteCookies("JSESSIONID"))
-//                .oauth2Login(withDefaults())
-                // Need to do custom csrf configuration
-                .csrf((csrf) -> csrf.disable());
+                .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
@@ -56,14 +53,4 @@ public class SecurityConfig{
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-    // This is for testing purposes
-
-    //    @Bean
-//    public UserDetailsService userDetailsServiceTest() {
-//        UserDetailsImpl admin = (UserDetailsImpl) User.builder().username("admin").password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN")
-//            .build();
-//        return new InMemoryUserDetailsManager(admin);
-//    }
 }

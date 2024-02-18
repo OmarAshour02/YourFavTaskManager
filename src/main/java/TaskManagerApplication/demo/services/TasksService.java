@@ -1,5 +1,7 @@
 package TaskManagerApplication.demo.services;
 
+import TaskManagerApplication.demo.configurations.annotation.AuthorizeUser;
+import TaskManagerApplication.demo.data.Implementations.UserDetailsImpl;
 import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.repositories.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,16 @@ public class TasksService {
         this.tasksRepository = tasksRepository;
     }
 
-    public Task addTask(Task task){
+
+    @AuthorizeUser
+    public Task addTask(UserDetailsImpl userDetails, Task task){
+        task.setUserId(userDetails.getId());
         return tasksRepository.save(task);
     }
-    public Task getTask(Long id){
-        return tasksRepository.findById(id).orElse(null);
+    public Optional<Task> getTask(Long id){
+        return tasksRepository.findById(id);
     }
 
-    public List<Task> getTasks(){
-        return tasksRepository.findAll();
-    }
 
     public List<Task> getTasksByStatus(Long userId, boolean status, Pageable pageable){
         return tasksRepository.findByUserIdAndStatus(userId, status, pageable);

@@ -34,7 +34,6 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
-
     @PostMapping("/signin")
     public ResponseEntity<Object> signIn(@RequestParam String email, @RequestParam String password) {
         Optional<Object> user = usersService.getUser(email, password);
