@@ -1,11 +1,10 @@
 package TaskManagerApplication.demo.services;
 
-import TaskManagerApplication.demo.configurations.annotation.AuthorizeUser;
 import TaskManagerApplication.demo.data.Implementations.UserDetailsImpl;
 import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.repositories.TasksRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,6 @@ public class TasksService {
     }
 
 
-    @AuthorizeUser
     public Task addTask(UserDetailsImpl userDetails, Task task){
         task.setUserId(userDetails.getId());
         return tasksRepository.save(task);
@@ -47,7 +45,7 @@ public class TasksService {
         tasksRepository.deleteById(id);
     }
 
-    public Task updateTask(Task task){
+    public Task updateTask(@NotNull Task task){
         Optional<Task> taskOptional = tasksRepository.findById(task.getId());
         if(taskOptional.isPresent()){
             Task taskToUpdate = taskOptional.get();

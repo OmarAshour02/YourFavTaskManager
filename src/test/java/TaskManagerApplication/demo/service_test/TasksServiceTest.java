@@ -2,6 +2,7 @@ package TaskManagerApplication.demo.service_test;
 
 import TaskManagerApplication.demo.data.Implementations.UserDetailsImpl;
 import TaskManagerApplication.demo.initializer.TaskInitializer;
+import TaskManagerApplication.demo.initializer.UserInitializer;
 import TaskManagerApplication.demo.repositories.TasksRepository;
 import TaskManagerApplication.demo.services.TasksService;
 import TaskManagerApplication.demo.data.Task;
@@ -13,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,29 +24,32 @@ import static org.mockito.Mockito.when;
 class TasksServiceTest {
 
     @Mock
+    private UserDetailsImpl userDetails;
+
+    @Mock
     private TasksRepository tasksRepository;
 
     @InjectMocks
     private TasksService tasksService;
 
-//    @Test
-//    void addTask() {
-//        Task task = TaskInitializer.createTask();
-//        when(tasksRepository.save(task)).thenReturn(task);
-//        Task savedTask = tasksService.addTask(UserDetailsImpl ,task);
-//        verify(tasksRepository).save(task);
-//        assertThat(savedTask).isEqualTo(task);
-//    }
+    @Test
+    void addTask() {
+        Task task = TaskInitializer.createTask();
+        when(tasksRepository.save(task)).thenReturn(task);
+        Task savedTask = tasksService.addTask(userDetails, task);
+        verify(tasksRepository).save(task);
+        assertThat(savedTask).isEqualTo(task);
+    }
 
-//    @Test
-//    void getTask() {
-//        Task task = TaskInitializer.createTask();
-//        when(tasksRepository.findById(1L)).thenReturn(java.util.Optional.of(task));
-//        Task foundTask = tasksService.getTask(1L);
-//        verify(tasksRepository).findById(1L);
-//        assertThat(foundTask).isEqualTo(task);
-//    }
-//
+    @Test
+    void getTask() {
+        Task task = TaskInitializer.createTask();
+        when(tasksRepository.findById(1L)).thenReturn(java.util.Optional.of(task));
+        Optional<Task> foundTask = tasksService.getTask(1L);
+        verify(tasksRepository).findById(1L);
+        assertThat(foundTask).isEqualTo(Optional.of(task));
+    }
+
 
     @Test
     void deleteTask() {

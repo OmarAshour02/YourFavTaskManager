@@ -25,13 +25,4 @@ public class TaskInitializer {
         return task;
     }
 
-    public static Task createTask(String title, String description, char priority, boolean status){
-        Task task = new Task();
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setDueDate(null);
-        task.setPriority(priority);
-        task.setStatus(status);
-        return task;
-    }
 }
