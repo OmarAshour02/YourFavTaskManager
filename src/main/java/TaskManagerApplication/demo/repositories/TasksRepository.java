@@ -1,6 +1,7 @@
 package TaskManagerApplication.demo.repositories;
 
 import TaskManagerApplication.demo.data.Task;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,8 +20,10 @@ public interface TasksRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByUserId(Long userId, Pageable pageable);
 
-    Page<Task> findAll(Pageable pageable);
+    @NotNull
+    Page<Task> findAll(@NotNull Pageable pageable);
 
-    Optional<Task> findById(Long id);
+    @NotNull
+    Optional<Task> findById(@NotNull Long id);
 
 }
