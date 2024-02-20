@@ -1,0 +1,15 @@
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/annotation/AuthorizeUser.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/controllers/HomeController.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/data/Implementations/UserDetailsImpl.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/repositories/UsersRepository.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/repositories/TasksRepository.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/data/Task.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/services/TasksService.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/services/implementations/UserDetailsServiceImpl.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/SecurityConfig.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/aspects/AuthorizationAspect.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/controllers/TasksController.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/data/User.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/controllers/UsersController.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/TaskManagerApplication.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/services/UsersService.java
