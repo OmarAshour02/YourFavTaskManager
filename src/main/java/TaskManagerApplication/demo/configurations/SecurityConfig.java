@@ -32,6 +32,7 @@ public class SecurityConfig{
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/api/v1/users/signin").permitAll()
                         .deleteCookies("JSESSIONID"))
+                //csrf is disabled for testing purposes
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
