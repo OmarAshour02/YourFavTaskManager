@@ -9,6 +9,7 @@
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/SecurityConfig.java
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/aspects/AuthorizationAspect.java
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/controllers/TasksController.java
+/home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/configurations/aspects/LoggingAspect.java
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/data/User.java
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/controllers/UsersController.java
 /home/omarashour/Downloads/YourFavTaskManager/src/main/java/TaskManagerApplication/demo/TaskManagerApplication.java

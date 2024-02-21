@@ -3,9 +3,12 @@ package TaskManagerApplication.demo.configurations.aspects;
 import TaskManagerApplication.demo.data.Implementations.UserDetailsImpl;
 import TaskManagerApplication.demo.data.Task;
 import TaskManagerApplication.demo.services.TasksService;
+import jakarta.persistence.Cacheable;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +29,7 @@ public class AuthorizationAspect {
 
     @Before("@annotation(TaskManagerApplication.demo.configurations.annotation.AuthorizeUser)")
     public void authorizeUser(JoinPoint joinPoint) {
-        /// Get the the current user id from the UserDetailsImpl object
+        /// Get the current user id from the UserDetailsImpl object
         Object[] args = joinPoint.getArgs();
 
         Long taskId = (Long) args[0];

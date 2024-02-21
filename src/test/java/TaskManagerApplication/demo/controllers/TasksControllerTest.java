@@ -57,7 +57,6 @@ public class TasksControllerTest {
         );
     }
 
-
     @Test
     void addTaskReturnsTrue() throws Exception  {
         when(tasksService.addTask(any(UserDetailsImpl.class), any(Task.class))).thenReturn(TaskInitializer.createTask());
