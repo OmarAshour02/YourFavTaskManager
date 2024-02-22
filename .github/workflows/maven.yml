@@ -35,7 +35,7 @@ jobs:
         cache: maven
     - name: Print Secrets
       run: |
-        echo "SUPABASE_URL: $SUPABASE_URL"
+        echo "SUPABASE_URL: ${{ secrets.SUPABASE_DATABASE }}"
         echo "PORT: $PORT"
     - name: Run tests with Maven
       run: mvn -B test -e -X --file pom.xml
