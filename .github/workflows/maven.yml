@@ -33,5 +33,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Print Secrets
+      run: |
+        echo "SUPABASE_URL: $SUPABASE_URL"
     - name: Run tests with Maven
       run: mvn -B test -e -X --file pom.xml
