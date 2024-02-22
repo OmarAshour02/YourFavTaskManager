@@ -36,5 +36,6 @@ jobs:
     - name: Print Secrets
       run: |
         echo "SUPABASE_URL: $SUPABASE_URL"
+        echo "PORT: $PORT"
     - name: Run tests with Maven
       run: mvn -B test -e -X --file pom.xml
