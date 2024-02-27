@@ -1,7 +1,7 @@
 # Task Craft
 Task Craft is a task manager application made with love using Java Spring Boot. It allows users to create, update, delete, and view tasks with various attributes such as name, description, priority, status, and deadline. It also supports pagination, authentication, and authorization features.
 
-[For live preview](#)
+[For live preview (Soon)](#)
 
 # Features
 - CRUD operations for tasks
