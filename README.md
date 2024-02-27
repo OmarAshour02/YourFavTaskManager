@@ -17,5 +17,5 @@ For installation you need to have atleast Java 11 installed on your machine.
 - Run the project on your favorite IDE
 
 # Usage
-The application exposes a REST API that can be accessed using any HTTP client. The API documentation can be found [here](http://localhost:8080/swagger-ui.html)
+The application exposes a REST API that can be accessed using any HTTP client.
 
