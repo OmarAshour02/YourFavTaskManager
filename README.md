@@ -13,7 +13,7 @@ Task Craft is a task manager application made with love using Java Spring Boot. 
 For installation you need to have atleast Java 11 installed on your machine.
 
 - Clone this repository : ```git clone https://github.com/OmarAshour02/TaskCraft.git```
-- Navigate to the project directory : ```cd YourFavTaskManager```
+- Navigate to the project directory : ```cd TaskCraft```
 - Run the project on your favorite IDE
 
 # Usage
